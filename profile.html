@@ -1,0 +1,32 @@
+<html>
+    <head>
+        
+        <script type="text/javascript" src="data.js"></script>
+        <script type="text/javascript" src="jquery.js"></script>
+        
+        <script type="text/javascript">
+        var userData = firebase.database().ref("users/"+UserID);
+
+  userData.update({
+
+        name : $("#name").val(),
+        age : $("#age").val(),
+        languages : $("#language").val()
+    }  
+      
+      
+  );  
+        </script>
+        
+        <img id="profilPic">
+        <input id="name" name="name">
+        <input id="age" name="age">
+        <input id="languages" name="languages">
+        
+    </head>
+    
+    <body>
+    
+        
+    </body>
+</html
