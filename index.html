@@ -94,7 +94,11 @@ function submitUserData(form){
 
             name : form.uname.value,
             age : form.age.value,
-            languages : form.languages.value
+            language1 : form.language1.value,
+            language2 : form.language2.value,
+            hobby1: form.hobby1.value,
+            hobby2: form.hobby2.value,
+            hobby3: form.hobby3.value
         }  
 
 
@@ -107,15 +111,18 @@ function submitUserData(form){
 }
 
         </script>
-    
-          
-        <img id="profilPic">
         
         <form id="profile" onsubmit="return submitUserData(this)">
         <label>Name</label><input id="uname" name="uname" required>
         <label>Age</label><input id="age" name="age" required>
-        <label>Language</label><input id="languages" name="languages">
+        <label>Language</label>
+            <input id="languages" name="language1">
+            <input id="languages" name="language2">
             
+        <label>Hobbies</label>
+            <input id="hobbies" name="hobby1">
+            <input id="hobbies" name="hobby2">
+            <input id="hobbies" name="hobby3">
         <button type="submit">Submit</button>  
      
         </form>
