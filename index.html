@@ -1,0 +1,81 @@
+<html>
+    <head>
+    
+    </head>
+    
+    <body>
+    
+        <script src="https://www.gstatic.com/firebasejs/4.5.1/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-app.js"></script>
+         <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-firestore.js"></script>
+            <script>
+              // Initialize Firebase
+              var config = {
+                apiKey: "AIzaSyA4OQPBpDxmIdSYWChKc8Q3ZjoRdyUiwvQ",
+                authDomain: "virtual-me-ee71d.firebaseapp.com",
+                databaseURL: "https://virtual-me-ee71d.firebaseio.com",
+                projectId: "virtual-me-ee71d",
+                storageBucket: "virtual-me-ee71d.appspot.com",
+                messagingSenderId: "1053982035282"
+              };
+              firebase.initializeApp(config);
+            </script>
+        
+            <script type="text/javascript">
+                function loginSubmit(form){
+                    firebase.auth().signInWithEmailAndPassword(form.email.value, form.psw.value).catch(function(error) {
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                    
+                    
+                    });
+                    return false;
+                }
+
+        </script>
+        
+        
+        <form onsubmit="return loginSubmit(this)"> 
+                <label><b>Email</b></label>
+                <input type="email" placeholder="Enter Email" name="email" required>
+            
+                <label><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" required>
+
+                <button type="submit">Login</button>
+
+        </form>
+        <script type = "text/javascript">
+            function createNewUser(form){
+                    try {
+                        
+                    firebase.auth().createUserWithEmailAndPassword(form.email.value, form.psw.value).catch(function(error){
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                    });
+                    } catch (e) {
+                        console.log(e)
+                    }
+                    return false;
+                }
+        </script>
+        
+        <form onsubmit="return createNewUser(this)"> 
+                <label><b>Email</b></label>
+                <input type="email" placeholder="Enter Email" name="email" required>
+                
+                <label><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" required>
+                
+                <button type="submit">Create Account</button>
+        </form>
+        
+        
+        
+    </body>
+    
+    
+    </html>
+    
