@@ -21,8 +21,16 @@
                 messagingSenderId: "1053982035282"
               };
               firebase.initializeApp(config);
-            </script>
-        
+                
+                firebase.auth().onAuthStateChanged(function(user) {
+                  if (user) {
+                    // User is signed in.
+                  } else {
+                    // No user is signed in.
+                  }
+                });
+             </script>
+   
             <script type="text/javascript">
                 function loginSubmit(form){
                     firebase.auth().signInWithEmailAndPassword(form.email.value, form.psw.value).catch(function(error) {
@@ -72,9 +80,46 @@
                 <button type="submit">Create Account</button>
         </form>
         
+
         
+        <script type="text/javascript">
+
+function submitUserData(form){
+        try{
+    
+        var userID = firebase.auth().currentUser.uid;
+        var userData = firebase.database().ref("users/"+userID);
+
+      userData.update({
+
+            name : form.uname.value,
+            age : form.age.value,
+            languages : form.languages.value
+        }  
+
+
+      ); 
+        }catch(e) {
+          console.log(e)
+      } 
         
+    return false;
+}
+
+        </script>
+    
+          
+        <img id="profilPic">
+        
+        <form id="profile" onsubmit="return submitUserData(this)">
+        <label>Name</label><input id="uname" name="uname" required>
+        <label>Age</label><input id="age" name="age" required>
+        <label>Language</label><input id="languages" name="languages">
+            
+        <button type="submit">Submit</button>  
+     
+        </form>
+   
     </body>
     
-    
-    </html>
+</html>

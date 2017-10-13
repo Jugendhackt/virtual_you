@@ -1,6 +1,7 @@
 /* globals $ firebase */
+var userId = firebase.auth().currentUser.uid;
 
-var userData = firebase.database().ref("users/"+UserID);
+var userData = firebase.database().ref("users/"+userID);
 
   userData.update({
 
