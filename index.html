@@ -53,21 +53,24 @@
         <script type="text/javascript">
            
             function matchlanguages(){
-                var userID = firebase.auth().currentUser.uid;
                 
-                var language = firebase.database().ref("user/"+userID+"/languages")
-                language.once("value").then(function(snapchot){var languageMap =  snapshot.val();
+                var activeuserID = firebase.auth().currentUser.uid;
+                
+                var language = firebase.database().ref("users/"+activeuserID+"/languages")
+                language.once("value").then(function(snapshot){var languageMap =  snapshot.val();
                    var languageList = Object.keys(languageMap);
-                languageList.map(function(userId){
-                       var languageP = firebase.database().ref("user/" + userId).once("value");
-                       return languageP;})
-                
+               
                 var userId = firebase.database().ref("tag/languages/" + language);
-               userId.once("value").then(function(snapshot) {
+                languageList.map(function(userId){
+                       var languageP = firebase.database().ref("users/" + userId).once("value");
+                       return languageP;})
+                                                               
+                userId.once("value").then(function(snapshot) {
                    var languageMap =  snapshot.val();
                    var languageList = Object.keys(languageMap);
-                   languageList.map(function(userId){
-                       var userP = firebase.database().ref("user/" + userId).once("value");
+                   
+                    languageList.map(function(userId){
+                       var userP = firebase.database().ref("users/" + userId).once("value");
                        return userP; })
                    
                    Promise.all(usersP).then(function(users) {
@@ -75,12 +78,14 @@
                        console.log(users); // maybe needs fixing ?!?!
                    });
                 });  
-            })}
+            })
+            
+            }
             
             function matchHobby(){
                 var userID = firebase.auth().currentUser.uid;
                 
-                var hobby = firebase.database().ref("user/"+userID+"/hobbies")
+                var hobby = firebase.database().ref("users/"+userID+"/hobbies")
                 hobby.once("vaue").then(function(snapshot){
                      var hobbyMap = snapshot.val();
                     var hobbyList= Object.keys(hobbyMap);
@@ -224,7 +229,7 @@ function submitUserData(form){
         <div id="profile">
             
         </div>
-         <button onsubmit="return matchlanguges(this)" type="submit">matching test</button>
+         <button onclick="return matchlanguages(this)" type="submit">matching test</button>
     </body>
     
 </html>
