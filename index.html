@@ -53,35 +53,41 @@
         <script type="text/javascript">
           
             function matchlanguages(){
-                language = "german"
+                var language = "german"
                 var userId = firebase.database().ref("tag/languages/" + language);
                userId.once("value").then(function(snapshot) {
-                   languageMap =  snapshot.val();
-                   languageList = Object.keys(languageMap);
-                   languageList.map(function(userId){
-                       var userP = firebase.database().ref("user/" + userId).once("value");
+                   var languageMap =  snapshot.val();
+                   var languageList = Object.keys(languageMap);
+                   var usersP = languageList.map(function(userId){
+                       var userP = firebase.database().ref("users/" + userId).once("value");
                        return userP;
                        
                    })
-               });            
+                   Promise.all(usersP).then(function(users) {
+                      users = users.map((snapshot)=>snapshot.val())
+                       console.log(users);
+                   });
+                   
+                
+               });  
             }
             
-            
+           /* 
             function matchHobby(){
                 hobby = "coding"
                 var userIdH = firebase.database().ref("tag/hobbys/" + hobby);
                 userIdh.once("value").then(function(snapshot) {
-                    hobbyMap = snapshot.val();
-                    hobbyList= Object.keys(hobbyMap);
-                    hobbyList.map(function(userIdH){
+                    var hobbyMap = snapshot.val();
+                    var hobbyList= Object.keys(hobbyMap);
+                    var hobbyList.map(function(userIdH){
                         var userPH = firebase.database().ref("user/" + userIdH).once("value");
-                        return user;
+                        return userPH;
                     })
                     
                 })
                 
-            }
-        
+            } 
+        */
         </script>
         
         
