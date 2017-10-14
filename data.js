@@ -33,7 +33,7 @@
 
  function matchlanguages() {
      var userID = firebase.auth().currentUser.uid;
-  //repair; fixing   
+     //repair; fixing   
      var language = firebase.database().ref("users/" + userID + "/languages")
      hobby.once("value").then(function (snapshot) {
          var languageMap = snapshot.val();
@@ -49,7 +49,7 @@
      })
 
 
-//working part
+     //working part
      var userId = firebase.database().ref("tag/languages/" + language);
      userId.once("value").then(function (snapshot) {
          var languageMap = snapshot.val();
@@ -68,7 +68,7 @@
      });
  }
 
-//working part end
+ //working part end
 
  function matchHobby() {
      var userID = firebase.auth().currentUser.uid;
@@ -138,7 +138,7 @@
              return res;
 
          }, {});
-         
+
          firebase.database().ref("users/" + userID + "/hobbies").on("child_added", function (hbadded) {
              var userData = firebase.database().ref("tag/hobbies/" + hbadded.key + "/" + userID).set(true);
          });
@@ -198,8 +198,8 @@
          }
      }
  }
- 
- 
+
+
  function logout() {
      firebase.auth().signOut().then(function () {
          // Sign-out successful.
@@ -208,3 +208,7 @@
      });
      return false;
  }
+
+
+
+
