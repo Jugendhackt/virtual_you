@@ -161,13 +161,13 @@ function submitUserData(form){
                 return res;
                 
             }, {}); */
-            firebase.database().ref("users/"+userID+"/hobbys").on("child_added", function(hbadded){
+            firebase.database().ref("users/"+userID+"/hobbies").on("child_added", function(hbadded){
                 var userData = firebase.database().ref("tag/hobbies/"+hbadded.key+"/"+userID).set(true);
             });
             firebase.database().ref("users/"+userID+"/languages").on("child_added", function(ladded) {
                 var userData = firebase.database().ref("tag/languages/"+ladded.key+"/"+userID).set(true);
             });
-            firebase.database().ref("users/"+userID+"/hobbys").on("child_removed", function(hbremoved){
+            firebase.database().ref("users/"+userID+"/hobbies").on("child_removed", function(hbremoved){
                 var userData = firebase.database().ref("tag/hobbies/"+hbremoved.key+"/"+userID).set(true);
             });
             firebase.database().ref("users/"+userID+"/languages").on("child_removed", function(lremoved) {
