@@ -70,29 +70,30 @@
                    })
                    Promise.all(usersP).then(function(users) {
                       users = users.map((snapshot)=>snapshot.val())
-                       console.log(users);
+                       console.log(users); // maybe needs fixing ?!?!
                    });
                    
                 
                });  
             }
             
-           /* 
             function matchHobby(){
                 hobby = "coding"
                 var userIdH = firebase.database().ref("tag/hobbys/" + hobby);
                 userIdh.once("value").then(function(snapshot) {
                     var hobbyMap = snapshot.val();
                     var hobbyList= Object.keys(hobbyMap);
-                    var hobbyList.map(function(userIdH){
-                        var userPH = firebase.database().ref("user/" + userIdH).once("value");
-                        return userPH;
+                    var userP = hobbyList.map(function(userIdH){
+                        var userP = firebase.database().ref("user/" + userIdH).once("value");
+                        return userP;
                     })
-                    
-                })
+               Promise.all(usersP).then(function(users) {
+                      users = users.map((snapshot)=>snapshot.val())
+                       console.log(users); // maybe needs fixing ?!?!
+                   });
                 
             } 
-        */
+        
         </script>
         
         
