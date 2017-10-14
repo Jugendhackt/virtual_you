@@ -33,6 +33,9 @@
 
  function matchlanguages() {
      var language = "german"
+
+
+
      var userId = firebase.database().ref("tag/languages/" + language);
      userId.once("value").then(function (snapshot) {
          var languageMap = snapshot.val();
@@ -54,13 +57,28 @@
 
 
  function matchHobby() {
-     hobby = "coding"
-     var userIdH = firebase.database().ref("tag/hobbys/" + hobby);
+     var userID = firebase.auth().currentUser.uid;
+
+     var hobby = firebase.database().ref("users/" + userID + "/hobbies")
+     hobby.once("value").then(function (snapshot) {
+         var hobbyMap = snapshot.val();
+         var hobbyList = Object.keys(hobbyMap);
+         var usersP = hobbyList.map(function (userIdH) {
+             var userP = firebase.database().ref("users/" + userIdH).once("value");
+             return userP;
+         });
+         Promise.all(usersP).then(function (users) {
+             users = users.map((snapshot) => snapshot.val())
+             console.log(users); // maybe needs fixing ?!?!
+         })
+     })
+
+     var userIdH = firebase.database().ref("tag/hobbies/" + hobby);
      userIdh.once("value").then(function (snapshot) {
          var hobbyMap = snapshot.val();
          var hobbyList = Object.keys(hobbyMap);
-         var userP = hobbyList.map(function (userIdH) {
-             var userP = firebase.database().ref("user/" + userIdH).once("value");
+         var usersP = hobbyList.map(function (userIdH) {
+             var userP = firebase.database().ref("users/" + userIdH).once("value");
              return userP;
          })
          Promise.all(usersP).then(function (users) {
@@ -106,11 +124,7 @@
              return res;
 
          }, {});
-
-         /* var hbT = hobbies.reduce(function(res, item){
-                return res;
-                
-            }, {}); */
+         
          firebase.database().ref("users/" + userID + "/hobbies").on("child_added", function (hbadded) {
              var userData = firebase.database().ref("tag/hobbies/" + hbadded.key + "/" + userID).set(true);
          });
@@ -153,20 +167,20 @@
      }
  });
 
-function showMenu() {
-    document.getElementById("menu").classList.toggle("show");
-}
+ function showMenu() {
+     document.getElementById("menu").classList.toggle("show");
+ }
 
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
+ window.onclick = function (event) {
+     if (!event.target.matches('.dropbtn')) {
 
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
+         var dropdowns = document.getElementsByClassName("dropdown-content");
+         var i;
+         for (i = 0; i < dropdowns.length; i++) {
+             var openDropdown = dropdowns[i];
+             if (openDropdown.classList.contains('show')) {
+                 openDropdown.classList.remove('show');
+             }
+         }
+     }
+ }
