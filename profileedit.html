@@ -1,0 +1,45 @@
+<html>
+    <head>
+        
+        <script type="text/javascript" src="data.js"></script>
+        <script type="text/javascript" src="jquery.js"></script>
+        
+        <script type="text/javascript">
+
+function submitUserData(form){
+    
+        var userId = firebase.auth().currentUser.uid;
+        var userData = firebase.database().ref("users/"+userID);
+
+      userData.update({
+
+            name : $("#name").val(),
+            gender : $("#gender").val()
+            age : $("#age").val(),
+            languages : $("#language").val()
+        }  
+
+
+      );  
+    return false;
+}
+
+        </script>
+    </head>
+    
+    <body>
+    
+          
+        <img id="profilPic">
+        
+        <form id="profile" onsubmit="return submitUserData(this)">
+        <label>Name</label><input id="uname" name="uname" required>
+        <label>Gender</label><input id="gender" name="gender" required>
+        <label>Age</label><input id="age" name="age" required>
+        <label>Language</label><input id="languages" name="languages">
+        <button type="submit">Submit</button>  
+     
+        </form>
+        
+    </body>
+</html
