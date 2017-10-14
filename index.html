@@ -5,11 +5,14 @@
     
     <body>
     
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/4.5.1/firebase.js"></script>
         <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-app.js"></script>
          <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-database.js"></script>
         <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-firestore.js"></script>
+        <script src="./bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.js"></script>
+        <link rel="stylesheet" href="./bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.css">
             <script>
               // Initialize Firebase
               var config = {
@@ -89,6 +92,8 @@ function submitUserData(form){
     
         var userID = firebase.auth().currentUser.uid;
         var userData = firebase.database().ref("users/"+userID);
+        var e = document.getElementById("hobbies");
+        var hobby = e.options[e.selectedIndex].value;    
 
       userData.update({
 
@@ -96,9 +101,7 @@ function submitUserData(form){
             age : form.age.value,
             language1 : form.language1.value,
             language2 : form.language2.value,
-            hobby1: form.hobby1.value,
-            hobby2: form.hobby2.value,
-            hobby3: form.hobby3.value
+            hobbies: hobby
         }  
 
 
@@ -117,14 +120,24 @@ function submitUserData(form){
         <label>Age</label><input id="age" name="age" required>
         <label>Language</label>
             <input id="languages" name="language1">
-            <input id="languages" name="language2">
-            
-        <label>Hobbies</label>
-            <input id="hobbies" name="hobby1">
-            <input id="hobbies" name="hobby2">
-            <input id="hobbies" name="hobby3">
-        <button type="submit">Submit</button>  
+            <input id="languages" name="language2"> 
      
+        
+         <label>Hobbies</label><input name="hobbies" data-role="tagsinput"> 
+            
+     <!--   <select id="hobbies" name="hobbies">   
+          <option value="coding">Coding</option> 
+          <option value="reading" selected>Reading</option>
+          <option value="sports">Sports</option>
+        </select>
+         <button type="submit">Submit</button> 
+            
+            </form>
+        
+        <form id="suchfeld" onsubmit="return InteressenSuchen(this)">
+            <label>Suchbegriff <input name="hs"></label>
+            <button>finden</button>
+-->
         </form>
    
     </body>
