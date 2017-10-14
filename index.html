@@ -51,8 +51,9 @@
         
         
         <script type="text/javascript">
-          language = "german"
+          
             function matchlanguages(){
+                language = "german"
                 var userId = firebase.database().ref("tag/languages/" + language);
                userId.once("value").then(function(snapshot) {
                    languageMap =  snapshot.val();
