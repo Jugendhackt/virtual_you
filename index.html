@@ -5,7 +5,7 @@
     
     <body>
     
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
         <script src="https://www.gstatic.com/firebasejs/4.5.1/firebase.js"></script>
         <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-app.js"></script>
          <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-auth.js"></script>
@@ -51,28 +51,49 @@
         
         
         <script type="text/javascript">
-          language = "german"
+           
             function matchlanguages(){
+                var userID = firebase.auth().currentUser.uid;
+                
+                var language = firebase.database().ref("user/"+userID+"/languages")
+                language.once("value").then(function(snapchot){var languageMap =  snapshot.val();
+                   var languageList = Object.keys(languageMap);
+                languageList.map(function(userId){
+                       var languageP = firebase.database().ref("user/" + userId).once("value");
+                       return languageP;})
+                
                 var userId = firebase.database().ref("tag/languages/" + language);
                userId.once("value").then(function(snapshot) {
-                   languageMap =  snapshot.val();
-                   languageList = Object.keys(languageMap);
+                   var languageMap =  snapshot.val();
+                   var languageList = Object.keys(languageMap);
                    languageList.map(function(userId){
                        var userP = firebase.database().ref("user/" + userId).once("value");
-                       return userP;
-                       
-                   })
+                       return userP; })
+                   
                    Promise.all(usersP).then(function(users) {
                       users = users.map((snapshot)=>snapshot.val())
                        console.log(users); // maybe needs fixing ?!?!
                    });
-                   
-                
-               });  
-            }
+                });  
+            })}
             
             function matchHobby(){
-                hobby = "coding"
+                var userID = firebase.auth().currentUser.uid;
+                
+                var hobby = firebase.database().ref("user/"+userID+"/hobbies")
+                hobby.once("vaue").then(function(snapshot){
+                     var hobbyMap = snapshot.val();
+                    var hobbyList= Object.keys(hobbyMap);
+                   var userP = hobbyList.map(function(userIdH){
+                        var userP = firebase.database().ref("user/" + userIdH).once("value");
+                        return userP;
+                    });
+                    Promise.all(usersP).then(function(users) {
+                      users = users.map((snapshot)=>snapshot.val())
+                       console.log(users); // maybe needs fixing ?!?!
+                   })
+                })
+                    
                 var userIdH = firebase.database().ref("tag/hobbys/" + hobby);
                 userIdh.once("value").then(function(snapshot) {
                     var hobbyMap = snapshot.val();
@@ -81,12 +102,12 @@
                         var userP = firebase.database().ref("user/" + userIdH).once("value");
                         return userP;
                     })
-               Promise.all(usersP).then(function(users) {
+                    Promise.all(usersP).then(function(users) {
                       users = users.map((snapshot)=>snapshot.val())
                        console.log(users); // maybe needs fixing ?!?!
                    });
                 
-            } 
+            })}
         
         </script>
         
@@ -151,11 +172,11 @@ function submitUserData(form){
                 return res;
                 
             }, {});
-            
-         /* var hbT = hobbies.reduce(function(res, item){
+        
+            var hbT = hobbies.reduce(function(res, item){
                 return res;
                 
-            }, {}); */
+            }, {});
             firebase.database().ref("users/"+userID+"/hobbies").on("child_added", function(hbadded){
                 var userData = firebase.database().ref("tag/hobbies/"+hbadded.key+"/"+userID).set(true);
             });
@@ -197,22 +218,13 @@ function submitUserData(form){
      
         
          <label>Hobbies</label><input name="hobbies" data-role="tagsinput"> 
-            
-     <!--   <select id="hobbies" name="hobbies">   
-          <option value="coding">Coding</option> 
-          <option value="reading" selected>Reading</option>
-          <option value="sports">Sports</option>
-        </select>
-         <button type="submit">Submit</button> 
-            
-            </form>
-        
-        <form id="suchfeld" onsubmit="return InteressenSuchen(this)">
-            <label>Suchbegriff <input name="hs"></label>
-            <button>finden</button>
--->
+
         </form>
    
+        <div id="profile">
+            
+        </div>
+         <button onsubmit="return matchlanguges(this)" type="submit">matching test</button>
     </body>
     
 </html>
