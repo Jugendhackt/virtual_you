@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.5.1/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-app.js"></script>
+         <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-firestore.js"></script>
+        <script src="./bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.js"></script>
+       
+    <link rel="stylesheet" href="./bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,6 +24,20 @@
 
   </head>
   <body>
+      
+        <script type="text/javascript">
+                function loginSubmit(form){
+                    firebase.auth().signInWithEmailAndPassword(form.email.value, form.psw.value).catch(function(error) {
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                    
+                    
+                    });
+                    return false;
+                }
+
+        </script>
+      
 
     <div class="container-fluid">
         <div class="row">
@@ -25,9 +48,11 @@
                     </center>
                     
                 </div>
-                <form class="form-horizontal" role="form" action="homepage.html">
+
+
+                <form class="form-horizontal" role="form" action="homepage.html" onsubmit="return loginSubmit(this)">
+
                     <div class="form-group">
-                         
                         <label for="inputEmail3" class="col-sm-2 control-label">
                             Email
                         </label>
@@ -62,7 +87,7 @@
                             </button>
                         </div>
                     </div>
-                </form>
+                </form>   
             </div>
         </div>
     </div>
