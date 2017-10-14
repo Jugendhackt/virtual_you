@@ -48,6 +48,30 @@
         </script>
         
         
+        
+        
+        <script type="text/javascript">
+          language = "german"
+            function matchlanguages(){
+                var userId = firebase.database().ref("tag/languages/" + language);
+               userId.once("value").then(function(snapshot) {
+                   languageMap =  snapshot.val();
+                   languageList = Object.keys(languageMap);
+                   languageList.map(function(userId){
+                       var userP = firebase.database().ref("user/" + userId).once("value");
+                       return userP;
+                       
+                   })
+               });            
+            }
+        
+        </script>
+        
+        
+        
+        
+        
+        
         <form onsubmit="return loginSubmit(this)"> 
                 <label><b>Email</b></label>
                 <input type="email" placeholder="Enter Email" name="email" required>
