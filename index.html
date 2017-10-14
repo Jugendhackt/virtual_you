@@ -151,12 +151,19 @@ function submitUserData(form){
                 return res;
                 
             }, {});
+            var hb = hobbies.reduce(function(res, item){
+                res[item] = true;
+                return res;
+                
+            }, {});
                              
       userData.update({
 
             name : form.uname.value,
             age : form.age.value,
             languages: lg,
+          hobbies: hb
+          
 
         }  
 
