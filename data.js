@@ -139,3 +139,15 @@ function submitUserData(form){
         
     return false;
 }
+                
+                firebase.auth().onAuthStateChanged(function(user) { 
+                  if (user) {
+                    // User is signed in.
+                      alert('eingeloggt')
+                       document.getElementById('home').style.display = 'block'
+                  } else {
+                    // No user is signed in.
+                      alert('hi');
+                      document.getElementById('home').style.display = 'none'
+                  }
+                }); 
