@@ -13,6 +13,11 @@
         <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-firestore.js"></script>
         <script src="./bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.js"></script>
         <link rel="stylesheet" href="./bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.css">
+        
+         <script src="./bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.js"></script>
+            <link rel="stylesheet" href="./bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.css">
+         <link href="css/bootstrap.min.css" rel="stylesheet">
+         <link href="css/style.css" rel="stylesheet">
             <script>
               // Initialize Firebase
               var config = {
@@ -137,10 +142,12 @@
 function submitUserData(form){
         try{
     
-        var userID = firebase.auth().currentUser.uid;
-        var userData = firebase.database().ref("users/"+userID);
-        var e = document.getElementById("hobbies");
-        var hobby = e.options[e.selectedIndex].value;    
+            var userID = firebase.auth().currentUser.uid;
+            var userData = firebase.database().ref("users/"+userID);
+            var e = document.getElementById("hobbies");
+            var hobby = e.options[e.selectedIndex].value; 
+            var languages = $(form.languages).tagsinput("items");
+            
 
       userData.update({
 
@@ -166,11 +173,10 @@ function submitUserData(form){
         <label>Name</label><input id="uname" name="uname" required>
         <label>Age</label><input id="age" name="age" required>
         <label>Language</label>
-            <input id="languages" name="language1">
-            <input id="languages" name="language2"> 
-     
+            <input id="languages" name="languages" data-role="tagsinput">
         
          <label>Hobbies</label><input name="hobbies" data-role="tagsinput"> 
+            <button type = "submit">Submit user data</button>
             
         </form>
    
