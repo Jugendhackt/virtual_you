@@ -157,7 +157,7 @@
 
 function submitUserData(form){
         try{
-    
+    //just trying
             var userID = firebase.auth().currentUser.uid;
             var userData = firebase.database().ref("users/"+userID);
             var hobbies = $(form.hobbies).tagsinput("items");
