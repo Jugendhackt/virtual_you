@@ -47,7 +47,64 @@
 
         </script>
         
- 
+        
+        
+        
+        <script type="text/javascript">
+           
+            function matchlanguages(){
+                
+                var activeuserID = firebase.auth().currentUser.uid;
+                var userId = firebase.database().ref("tag/languages/" + language);
+                
+                var language = firebase.database().ref("users/"+activeuserID+"/languages")
+                language.once("value").then(function(snapshot){
+                    var languageMap =  snapshot.val();
+                    var languageList = Object.keys(languageMap);                           
+                    languageList.map(function(userId){
+                       var languageP = firebase.database().ref("users/" + userId).once("value");
+                       return languageP});
+                   
+                   Promise.all(usersP).then(function(users) {
+                      users = users.map((snapshot)=>snapshot.val())
+                       console.log(users); // maybe needs fixing ?!?!
+                   });
+                });  
+            }
+            
+            function matchHobby(){
+                var userID = firebase.auth().currentUser.uid;
+                
+                var hobby = firebase.database().ref("users/"+userID+"/hobbies")
+                hobby.once("vaue").then(function(snapshot){
+                     var hobbyMap = snapshot.val();
+                    var hobbyList= Object.keys(hobbyMap);
+                   var userP = hobbyList.map(function(userIdH){
+                        var userP = firebase.database().ref("user/" + userIdH).once("value");
+                        return userP;
+                    });
+                    Promise.all(usersP).then(function(users) {
+                      users = users.map((snapshot)=>snapshot.val())
+                       console.log(users); // maybe needs fixing ?!?!
+                   })
+                })
+                    
+                var userIdH = firebase.database().ref("tag/hobbys/" + hobby);
+                userIdh.once("value").then(function(snapshot) {
+                    var hobbyMap = snapshot.val();
+                    var hobbyList= Object.keys(hobbyMap);
+                    var userP = hobbyList.map(function(userIdH){
+                        var userP = firebase.database().ref("user/" + userIdH).once("value");
+                        return userP;
+                    })
+                    Promise.all(usersP).then(function(users) {
+                      users = users.map((snapshot)=>snapshot.val())
+                       console.log(users); // maybe needs fixing ?!?!
+                   });
+                
+            })}
+        
+        </script>
         
         
         
