@@ -13,6 +13,11 @@
         <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-firestore.js"></script>
         <script src="./bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.js"></script>
         <link rel="stylesheet" href="./bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.css">
+        
+         <script src="./bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.js"></script>
+            <link rel="stylesheet" href="./bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.css">
+         <link href="css/bootstrap.min.css" rel="stylesheet">
+         <link href="css/style.css" rel="stylesheet">
             <script>
               // Initialize Firebase
               var config = {
@@ -46,6 +51,54 @@
                 }
 
         </script>
+        
+        
+        
+        
+        <script type="text/javascript">
+          
+            function matchlanguages(){
+                var language = "german"
+                var userId = firebase.database().ref("tag/languages/" + language);
+               userId.once("value").then(function(snapshot) {
+                   var languageMap =  snapshot.val();
+                   var languageList = Object.keys(languageMap);
+                   var usersP = languageList.map(function(userId){
+                       var userP = firebase.database().ref("users/" + userId).once("value");
+                       return userP;
+                       
+                   })
+                   Promise.all(usersP).then(function(users) {
+                      users = users.map((snapshot)=>snapshot.val())
+                       console.log(users); // maybe needs fixing ?!?!
+                   });
+                   
+                
+               });  
+            }
+            
+            function matchHobby(){
+                hobby = "coding"
+                var userIdH = firebase.database().ref("tag/hobbys/" + hobby);
+                userIdh.once("value").then(function(snapshot) {
+                    var hobbyMap = snapshot.val();
+                    var hobbyList= Object.keys(hobbyMap);
+                    var userP = hobbyList.map(function(userIdH){
+                        var userP = firebase.database().ref("user/" + userIdH).once("value");
+                        return userP;
+                    })
+               Promise.all(usersP).then(function(users) {
+                      users = users.map((snapshot)=>snapshot.val())
+                       console.log(users); // maybe needs fixing ?!?!
+                   });
+                
+            } 
+        
+        </script>
+        
+        
+        
+        
         
         
         <form onsubmit="return loginSubmit(this)"> 
@@ -90,18 +143,44 @@
 function submitUserData(form){
         try{
     
-        var userID = firebase.auth().currentUser.uid;
-        var userData = firebase.database().ref("users/"+userID);
-        var e = document.getElementById("hobbies");
-        var hobby = e.options[e.selectedIndex].value;    
-
+            var userID = firebase.auth().currentUser.uid;
+            var userData = firebase.database().ref("users/"+userID);
+            var hobbies = $(form.hobbies).tagsinput("items");
+            var languages = $(form.languages).tagsinput("items");
+            var lg = languages.reduce(function(res, item){
+                res[item] = true;
+                return res;
+                
+            }, {});
+            var hb = hobbies.reduce(function(res, item){
+                res[item] = true;
+                return res;
+                
+            }, {});
+            
+         /* var hbT = hobbies.reduce(function(res, item){
+                return res;
+                
+            }, {}); */
+            firebase.database().ref("users/"+userID+"/hobbies").on("child_added", function(hbadded){
+                var userData = firebase.database().ref("tag/hobbies/"+hbadded.key+"/"+userID).set(true);
+            });
+            firebase.database().ref("users/"+userID+"/languages").on("child_added", function(ladded) {
+                var userData = firebase.database().ref("tag/languages/"+ladded.key+"/"+userID).set(true);
+            });
+            firebase.database().ref("users/"+userID+"/hobbies").on("child_removed", function(hbremoved){
+                var userData = firebase.database().ref("tag/hobbies/"+hbremoved.key+"/"+userID).set(true);
+            });
+            firebase.database().ref("users/"+userID+"/languages").on("child_removed", function(lremoved) {
+                var userData = firebase.database().ref("tag/languages/"+lremoved.key+"/"+userID).set(true);
+            });
       userData.update({
+          name : form.uname.value,
+          age : form.age.value,
+          languages: lg,
+          hobbies: hb
+          
 
-            name : form.uname.value,
-            age : form.age.value,
-            language1 : form.language1.value,
-            language2 : form.language2.value,
-            hobbies: hobby
         }  
 
 
@@ -118,26 +197,11 @@ function submitUserData(form){
         <form id="profile" onsubmit="return submitUserData(this)">
         <label>Name</label><input id="uname" name="uname" required>
         <label>Age</label><input id="age" name="age" required>
-        <label>Language</label>
-            <input id="languages" name="language1">
-            <input id="languages" name="language2"> 
      
-        
-         <label>Hobbies</label><input name="hobbies" data-role="tagsinput"> 
+        <label>Languages</label><input name="languages" data-role="tagsinput">
+        <label>Hobbies</label><input name="hobbies" data-role="tagsinput"> 
+        <button type = "submit">Submit user data</button>
             
-     <!--   <select id="hobbies" name="hobbies">   
-          <option value="coding">Coding</option> 
-          <option value="reading" selected>Reading</option>
-          <option value="sports">Sports</option>
-        </select>
-         <button type="submit">Submit</button> 
-            
-            </form>
-        
-        <form id="suchfeld" onsubmit="return InteressenSuchen(this)">
-            <label>Suchbegriff <input name="hs"></label>
-            <button>finden</button>
--->
         </form>
    
     </body>
