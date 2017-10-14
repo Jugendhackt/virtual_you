@@ -3,7 +3,6 @@
     <head>
      
          <link href="css/bootstrap.min.css" rel="stylesheet">
-         <link href="css/style.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
      
     </head>
@@ -14,7 +13,7 @@
 		<div class="col-md-10">
 			<div class="page-header">
 				<h1>
-					VISUAL YOU <small>matching for a lifelong friend :)</small>
+					VISUAL YOU <small> - Get to know people from all over the planet!</small>
                 </h1>
 			</div>
 		</div>
@@ -27,30 +26,28 @@
                             <img alt="Bootstrap Image Preview" src="Image/image1.png" width="240" height="400" class="img-circle" vspace="50" />
                     </center>
 								
-                        <form>
-									<label for="inputEmail3" class="col-sm-2 control-label">
-										Email
-									</label>
-										<input type="email" class="form-control" id="inputEmail3" />
-									 
-									<label for="inputPassword3" class="col-sm-2 control-label">
-										Password
-									</label>
-										<input type="password" class="form-control" id="inputPassword3" />
-											 
-											<label>
-												<input type="checkbox" /> Remember me
-											</label>
-										 
-										<button type="submit" class="btn btn-default">
-											Sign in
-                                        </button>
-							</form>
+                 <form align="center" onsubmit="return loginSubmit(this)"> 
+                     <div class="datenEingeben">
+                    <label><b>Email</b></label>
+                    <input type="email" placeholder="Enter Email" name="email" required>
+
+                    <label><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="psw" required>
+                     </div>
+                     <div class="datenEingeben">
+                    <label><input type="checkbox" /> Remember me</label>
+                    </div>
+                     <div class="datenEingeben">
+                    <button type="submit">Login</button>
+                    </div>
+                </form>
+                        
 						</div>
                     </div>
 				</div>
 			</div>
-				<div class="col-md-4">
+    
+	<!--			<div class="col-md-4">
 					<ul>
 						<li>
 							searching and matching for the suitable friend
@@ -68,7 +65,7 @@
 						
 
 					</ul>
-				</div>
+				</div>  -->
 				
 			</div>
 
@@ -82,5 +79,9 @@
 <style>
     body{
         font-family: 'Quicksand', sans-serif;
+    }
+    
+    .datenEingeben{
+        padding: 5px;
     }
 </style>
