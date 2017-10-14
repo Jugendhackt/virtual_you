@@ -55,31 +55,21 @@
             function matchlanguages(){
                 
                 var activeuserID = firebase.auth().currentUser.uid;
+                var userId = firebase.database().ref("tag/languages/" + language);
                 
                 var language = firebase.database().ref("users/"+activeuserID+"/languages")
-                language.once("value").then(function(snapshot){var languageMap =  snapshot.val();
-                   var languageList = Object.keys(languageMap);
-               
-                var userId = firebase.database().ref("tag/languages/" + language);
-                languageList.map(function(userId){
-                       var languageP = firebase.database().ref("users/" + userId).once("value");
-                       return languageP;})
-                                                               
-                userId.once("value").then(function(snapshot) {
-                   var languageMap =  snapshot.val();
-                   var languageList = Object.keys(languageMap);
-                   
+                language.once("value").then(function(snapshot){
+                    var languageMap =  snapshot.val();
+                    var languageList = Object.keys(languageMap);                           
                     languageList.map(function(userId){
-                       var userP = firebase.database().ref("users/" + userId).once("value");
-                       return userP; })
+                       var languageP = firebase.database().ref("users/" + userId).once("value");
+                       return languageP});
                    
                    Promise.all(usersP).then(function(users) {
                       users = users.map((snapshot)=>snapshot.val())
                        console.log(users); // maybe needs fixing ?!?!
                    });
                 });  
-            })
-            
             }
             
             function matchHobby(){
