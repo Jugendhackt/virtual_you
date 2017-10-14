@@ -172,11 +172,11 @@ function submitUserData(form){
                 return res;
                 
             }, {});
-            
-         /* var hbT = hobbies.reduce(function(res, item){
+        
+            var hbT = hobbies.reduce(function(res, item){
                 return res;
                 
-            }, {}); */
+            }, {});
             firebase.database().ref("users/"+userID+"/hobbies").on("child_added", function(hbadded){
                 var userData = firebase.database().ref("tag/hobbies/"+hbadded.key+"/"+userID).set(true);
             });
