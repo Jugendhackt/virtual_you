@@ -32,7 +32,24 @@
 
 
  function matchlanguages() {
-     var language = "german"
+     var userID = firebase.auth().currentUser.uid;
+     
+     var language = firebase.database().ref("users/" + userID + "/languages")
+     hobby.once("value").then(function (snapshot) {
+         var languageMap = snapshot.val();
+         var languageList = Object.keys(languageMap);
+         var usersP = languageList.map(function (userIdH) {
+             var userP = firebase.database().ref("users/" + userIdH).once("value");
+             return userP;
+         });
+         Promise.all(usersP).then(function (users) {
+             users = users.map((snapshot) => snapshot.val())
+             console.log(users); // maybe needs fixing ?!?!
+         })
+     })
+
+
+
      var userId = firebase.database().ref("tag/languages/" + language);
      userId.once("value").then(function (snapshot) {
          var languageMap = snapshot.val();
@@ -59,8 +76,8 @@
      userIdh.once("value").then(function (snapshot) {
          var hobbyMap = snapshot.val();
          var hobbyList = Object.keys(hobbyMap);
-         var userP = hobbyList.map(function (userIdH) {
-             var userP = firebase.database().ref("user/" + userIdH).once("value");
+         var usersP = hobbyList.map(function (userIdH) {
+             var userP = firebase.database().ref("users/" + userIdH).once("value");
              return userP;
          })
          Promise.all(usersP).then(function (users) {
@@ -106,11 +123,7 @@
              return res;
 
          }, {});
-
-         /* var hbT = hobbies.reduce(function(res, item){
-                return res;
-                
-            }, {}); */
+         
          firebase.database().ref("users/" + userID + "/hobbies").on("child_added", function (hbadded) {
              var userData = firebase.database().ref("tag/hobbies/" + hbadded.key + "/" + userID).set(true);
          });
@@ -170,7 +183,8 @@
          }
      }
  }
-
+ 
+ 
  function logout() {
      firebase.auth().signOut().then(function () {
          // Sign-out successful.
