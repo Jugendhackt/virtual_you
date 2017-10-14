@@ -146,14 +146,18 @@ function submitUserData(form){
             var userData = firebase.database().ref("users/"+userID);
             var hobbies = $(form.hobbies).tagsinput("items");
             var languages = $(form.languages).tagsinput("items");
-            
+            var lg = languages.reduce(function(res, item){
+                res[item] = true;
+                return res;
+                
+            }, {});
+                             
       userData.update({
 
             name : form.uname.value,
             age : form.age.value,
-            languages : form.language1.value,
-            language2 : form.language2.value,
-            hobbies: hobbies
+            languages: lg,
+
         }  
 
 
