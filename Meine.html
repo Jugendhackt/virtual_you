@@ -83,8 +83,27 @@
 							Find Match!</button>
                             </form>
                             <ul class="nav navbar-nav navbar-right">
-                                <li class="dropdown">
-                                    <a id="menu" class="dropdown-toggle" data-toggle="dropdown">Profile<strong class="caret"></strong></a>
+                                
+                                <div class="dropdown">
+                                <button onclick="showMenu()" class="dropbtn">Dropdown</button>
+                                        <div id="menu" class="dropdown-content">
+                                            <li>
+                                            <a href="#">View Profile</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Edit Profile</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Logout</a>
+                                        </li>
+                                        </div>    
+                                
+                                </div>
+                                
+                              <!--  <li class="dropdown">
+                                    
+                                    
+                                    <a class="dropdown-toggle" data-toggle="dropdown">Profile<strong class="caret"></strong></a>
                                     <ul class="dropdown-menu">
                                         <li>
                                             <a href="#">View Profile</a>
@@ -96,7 +115,7 @@
                                             <a href="#">Logout</a>
                                         </li>
                                     </ul>
-                                </li>
+                                </li> -->
                             </ul>
                             
 
@@ -332,5 +351,42 @@
         padding: 5px;
 
     }
+    
+    .dropbtn {
+    background-color: cornflowerblue;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: cornflowerblue;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown a:hover {background-color: #f1f1f1}
 
 </style>
