@@ -156,12 +156,21 @@ function submitUserData(form){
                 return res;
                 
             }, {});
-                             
+            
+         /* var hbT = hobbies.reduce(function(res, item){
+                return res;
+                
+            }, {}); */
+            firebase.database().ref("users/"+userID+"/hobbies").on("child_added").then(function(){
+                var userData = firebase.database().ref("tag/hobbies/"+hb+"/"+userID).set(true);
+            });
+            firebase.database().ref("users/"+userID+"/languages").on("child_added").then(function() {
+                var userData = firebase.database().ref("tag/languages/"+lg+"/"+userID).set(true);
+            });
       userData.update({
-
-            name : form.uname.value,
-            age : form.age.value,
-            languages: lg,
+          name : form.uname.value,
+          age : form.age.value,
+          languages: lg,
           hobbies: hb
           
 
