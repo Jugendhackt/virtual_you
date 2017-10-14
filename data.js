@@ -209,6 +209,12 @@
      return false;
  }
 
+ function profile() {
+     var userID = firebase.auth().currentUser.uid;
+     var name = firebase.database().ref("users/" + userID)
+     name.once("value").then(function (snapshot) {
+         var name = snapshot.child("name").val();
+         console.log(name);
+     })
 
-
-
+ }
