@@ -1,4 +1,28 @@
 <html>
+    
 
+    <div>
+        <img id="profilePic" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_isWgOJHA7YNXAhKDE5h12SW2l91gIYU9YfZTisz4KItXN18U">
+        
+        <script type="text/javascript">
+            var rlname=imeh;
+            console.log("Name: "+rlname);
+            
+            var userId = firebase.auth().currentUser.uid;
+return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
+  var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+  // ...
+});
+        </script>
+        
+        
+        
+       <!-- <ul>Name:</ul><script>document.getElementById("foobar").style.backgroundImage = "rlname";</script>
+        <ul></ul>
+        <ul></ul>
+        <ul></ul>
+        <ul></ul> -->
+        
+    </div>
 
 </html>
