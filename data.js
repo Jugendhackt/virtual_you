@@ -33,7 +33,7 @@
 
  function matchlanguages() {
      var userID = firebase.auth().currentUser.uid;
-     
+  //repair; fixing   
      var language = firebase.database().ref("users/" + userID + "/languages")
      hobby.once("value").then(function (snapshot) {
          var languageMap = snapshot.val();
@@ -49,7 +49,7 @@
      })
 
 
-
+//working part
      var userId = firebase.database().ref("tag/languages/" + language);
      userId.once("value").then(function (snapshot) {
          var languageMap = snapshot.val();
@@ -68,7 +68,7 @@
      });
  }
 
-
+//working part end
 
  function matchHobby() {
      var userID = firebase.auth().currentUser.uid;
