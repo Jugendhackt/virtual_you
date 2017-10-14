@@ -5,7 +5,7 @@
     
     <body>
     
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
         <script src="https://www.gstatic.com/firebasejs/4.5.1/firebase.js"></script>
         <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-app.js"></script>
          <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-auth.js"></script>
@@ -92,7 +92,7 @@
                        console.log(users); // maybe needs fixing ?!?!
                    });
                 
-            } 
+            })}
         
         </script>
         
@@ -202,8 +202,13 @@ function submitUserData(form){
         <label>Hobbies</label><input name="hobbies" data-role="tagsinput"> 
         <button type = "submit">Submit user data</button>
             
+            
         </form>
    
+        <div id="profile">
+            
+        </div>
+        
     </body>
     
 </html>
