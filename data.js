@@ -32,7 +32,21 @@
 
 
  function matchlanguages() {
-     var language = "german"
+     var userID = firebase.auth().currentUser.uid;
+     
+     var language = firebase.database().ref("users/" + userID + "/languages")
+     hobby.once("value").then(function (snapshot) {
+         var languageMap = snapshot.val();
+         var languageList = Object.keys(languageMap);
+         var usersP = languageList.map(function (userIdH) {
+             var userP = firebase.database().ref("users/" + userIdH).once("value");
+             return userP;
+         });
+         Promise.all(usersP).then(function (users) {
+             users = users.map((snapshot) => snapshot.val())
+             console.log(users); // maybe needs fixing ?!?!
+         })
+     })
 
 
 
