@@ -31,76 +31,50 @@
  }
 
 
- function matchlanguages() {
-     var userID = firebase.auth().currentUser.uid;
-     //repair; fixing   
-     var language = firebase.database().ref("users/" + userID + "/languages")
-     hobby.once("value").then(function (snapshot) {
-         var languageMap = snapshot.val();
-         var languageList = Object.keys(languageMap);
-         var usersP = languageList.map(function (userIdH) {
-             var userP = firebase.database().ref("users/" + userIdH).once("value");
-             return userP;
-         });
-         Promise.all(usersP).then(function (users) {
-             users = users.map((snapshot) => snapshot.val())
-             console.log(users); // maybe needs fixing ?!?!
-         })
-     })
+ function getusersfortag(tagmap, tagkey) {
+     var tagList = Object.keys(tagmap);
 
+     return tagList.map(function (tag) {
+         var userIdinlg = firebase.database().ref("tag/" + tagkey + "/" + tag);
 
-     //working part
-     var userId = firebase.database().ref("tag/languages/" + language);
-     userId.once("value").then(function (snapshot) {
-         var languageMap = snapshot.val();
-         var languageList = Object.keys(languageMap);
-         var usersP = languageList.map(function (userId) {
-             var userP = firebase.database().ref("users/" + userId).once("value");
-             return userP;
-
-         })
-         Promise.all(usersP).then(function (users) {
-             users = users.map((snapshot) => snapshot.val())
-             console.log(users); // maybe needs fixing ?!?!
-         });
+         return userIdinlg.once("value")
 
 
      });
  }
 
- //working part end
-
- function matchHobby() {
+ function matchusers() {
      var userID = firebase.auth().currentUser.uid;
+     var user = firebase.database().ref("users/" + userID)
 
-     var hobby = firebase.database().ref("users/" + userID + "/hobbies")
-     hobby.once("value").then(function (snapshot) {
-         var hobbyMap = snapshot.val();
-         var hobbyList = Object.keys(hobbyMap);
-         var usersP = hobbyList.map(function (userIdH) {
-             var userP = firebase.database().ref("users/" + userIdH).once("value");
-             return userP;
+     user.once("value").then(function (snapshot) {
+
+         var languagesP = getusersfortag(snapshot.val().languages, "languages")
+         var hobbiesP = getusersfortag(snapshot.val().hobbies, "hobbies")
+         var allP = languagesP.concat(hobbiesP)
+         Promise.all(allP).then(function (snapshots) {
+             var userIdsList = snapshots.map((snapshot) => snapshot.val())
+             var alluserIDmap = userIdsList.reduce(function (res, userids) {
+                 Object.keys(userids).forEach(function (userid) {
+                     res[userid] = true
+                 })
+
+
+                 return res;
+             }, {})
+
+             var allUserIdlist = Object.keys(alluserIDmap).filter(function (listuserid) {
+                 if (userID == listuserid) {
+                     return false
+                 } else {
+                     return true
+                 }
+             })
+             console.log(allUserIdlist)
+
          });
-         Promise.all(usersP).then(function (users) {
-             users = users.map((snapshot) => snapshot.val())
-             console.log(users); // maybe needs fixing ?!?!
-         })
-     })
+     });
 
-     var userIdH = firebase.database().ref("tag/hobbies/" + hobby);
-     userIdh.once("value").then(function (snapshot) {
-         var hobbyMap = snapshot.val();
-         var hobbyList = Object.keys(hobbyMap);
-         var usersP = hobbyList.map(function (userIdH) {
-             var userP = firebase.database().ref("users/" + userIdH).once("value");
-             return userP;
-         })
-         Promise.all(usersP).then(function (users) {
-             users = users.map((snapshot) => snapshot.val())
-             console.log(users); // maybe needs fixing ?!?!
-         });
-
-     })
  }
 
 
