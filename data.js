@@ -169,6 +169,9 @@
      return false;
  }
 
+
+
+
  firebase.auth().onAuthStateChanged(function (user) {
      if (user) {
          // User is signed in.
@@ -226,3 +229,25 @@
          document.write();
      })
  }
+
+ function profileEdit() {
+
+    document.getElementById("profileEdit").style.display = 'none'; 
+     document.getElementById("editProfileButton").addEventListener("click", function () {
+         document.getElementById('home').style.display = 'none';
+         document.getElementById("Profile") = "block";
+     })
+ }
+/*
+var currentSeite = home;
+var seiten = [profileEdit, home, signinpage]
+seiten.forEach(function(seite){
+    
+    if(currentSeite==seite) {
+        seite.style.display="block";
+    }
+    else{
+        seite.style.display="none";
+    }
+})
+*/

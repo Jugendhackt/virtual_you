@@ -91,7 +91,7 @@
                                             <a onclick="profile()">View Profile</a>
                                         </li>
                                         <li>
-                                            <a href="#">Edit Profile</a>
+                                            <a onclick="editProfile">Edit Profile</a>
                                         </li>
                                         <li>
                                             <a onclick="return logout()">Logout</a>
@@ -275,6 +275,19 @@
                 </div>
             </div>
         </div>
+        
+        <div id="profileView">
+         <form id="profile" onsubmit="return submitUserData(this)">
+        <label>Name</label><input id="uname" name="uname" required>
+        <label>Gender</label><input id="gender" name="gender" required>
+        <label>Age</label><input id="age" name="age" required>
+        <label>Language</label><input id="languages" name="languages" data-role="tagsinput">
+        <label>Hobbies</label><input name="hobbies" data-role="tagsinput">
+        <button type="submit" onsubmit="return submitUserData(this)">Submit</button>  
+            </form>
+        
+        </div>
+ 
 
         <style>
             #ueberschrift {
