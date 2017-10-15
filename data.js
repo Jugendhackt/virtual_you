@@ -212,9 +212,17 @@
  function profile() {
      var userID = firebase.auth().currentUser.uid;
      var name = firebase.database().ref("users/" + userID)
-     name.once("value").then(function (snapshot) {
-         var name = snapshot.child("name").val();
-         console.log(name);
-     })
 
+     name.once("value").then(function (snapshot) {
+         var user = snapshot.val();
+         var name = user.name;
+
+         var age = user.age;
+
+         var languages = user.languages;
+         document.write(age);
+         document.write(name);
+         document.write(languages);
+         document.write();
+     })
  }
