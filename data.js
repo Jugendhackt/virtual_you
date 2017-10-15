@@ -219,7 +219,7 @@
 
          var age = user.age;
 
-         var languages = user.languages;
+         var languages = Object.keys(user.languages).join(",");
          document.write(age);
          document.write(name);
          document.write(languages);
