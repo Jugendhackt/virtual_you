@@ -13,55 +13,55 @@
     <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-firestore.js"></script>
     <script src="./bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.js"></script>
     <link rel="stylesheet" href="./bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.css">
-    
+
 
 </head>
 
 <body>
     <div id="signinpage">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-10">
-                <div class="page-header">
-                    <h1>
-                        VIRTUAL YOU <small> - Get to know people from all over the planet!</small>
-                    </h1>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="page-header">
+                        <h1>
+                            VIRTUAL YOU <small> - Get to know people from all over the planet!</small>
+                        </h1>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-12">
-                        <center>
-                            <img alt="Bootstrap Image Preview" src="Image/image1.png" width="240" height="400" class="img-circle" vspace="50" />
-                        </center>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <center>
+                                <img alt="Bootstrap Image Preview" src="Image/image1.png" width="240" height="400" class="img-circle" vspace="50" />
+                            </center>
 
-                        <form align="center" onsubmit="return loginSubmit(this)">
-                            <div class="datenEingeben">
-                                <label><b>Email</b></label>
-                                <input type="email" placeholder="Enter Email" name="email" required>
+                            <form align="center" onsubmit="return loginSubmit(this)">
+                                <div class="datenEingeben">
+                                    <label><b>Email</b></label>
+                                    <input type="email" placeholder="Enter Email" name="email" required>
 
-                                <label><b>Password</b></label>
-                                <input type="password" placeholder="Enter Password" name="psw" required>
-                            </div>
-                            <div class="datenEingeben">
-                                <label><input type="checkbox" /> Remember me</label>
-                            </div>
-                            <div class="datenEingeben">
-                                <button type="submit" action="">Login</button>
-                            </div>
-                        </form>
+                                    <label><b>Password</b></label>
+                                    <input type="password" placeholder="Enter Password" name="psw" required>
+                                </div>
+                                <div class="datenEingeben">
+                                    <label><input type="checkbox" /> Remember me</label>
+                                </div>
+                                <div class="datenEingeben">
+                                    <button type="submit" action="">Login</button>
+                                </div>
+                            </form>
 
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
-    
-    
-            <div id="home">
+
+
+    <div id="home">
 
         <div class="container-fluid">
             <div class="row">
@@ -83,24 +83,25 @@
 							Find Match!</button>
                             </form>
                             <ul class="nav navbar-nav navbar-right">
-                                <li class="dropdown">
-                                    <a id="menu" class="dropdown-toggle" data-toggle="dropdown">Profile<strong class="caret"></strong></a>
-                                    <ul class="dropdown-menu">
+
+                                <div class="dropdown">
+                                    <button onclick="showMenu()" class="dropbtn">Profile</button>
+                                    <div id="menu" class="dropdown-content">
                                         <li>
-                                            <a href="#">View Profile</a>
+                                            <a onclick="profile()">View Profile</a>
                                         </li>
                                         <li>
                                             <a href="#">Edit Profile</a>
                                         </li>
                                         <li>
-                                            <a href="#">Logout</a>
+                                            <a onclick="return logout()">Logout</a>
                                         </li>
-                                    </ul>
-                                </li>
+                                    </div>
+                                </div>
                             </ul>
-                            
 
-                                  
+
+
                         </div>
 
                     </nav>
@@ -290,7 +291,6 @@
             body {
                 font-family: 'Quicksand', sans-serif;
             }
-
         </style>
 
 
@@ -298,26 +298,7 @@
     </div>
 
 
-
-    <!--	<ul>
-						<li>
-							searching and matching for the suitable friend
-						</li>
-						<li>
-							Customizing your social life
-						</li>
-						<li>
-							Bringing fun and company
-						</li>
-						<li>
-
-							Connecting the world together
-						</li>
-						
-
-</ul>  -->
-
-<script type="text/javascript" src="data.js"></script>
+    <script type="text/javascript" src="data.js"></script>
 
 </body>
 
@@ -331,6 +312,47 @@
     .datenEingeben {
         padding: 5px;
 
+    }
+
+    .dropbtn {
+        background-color: cornflowerblue;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        cursor: pointer;
+    }
+
+    .dropbtn:hover,
+    .dropbtn:focus {
+        background-color: cornflowerblue;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        overflow: auto;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown a:hover {
+        background-color: #f1f1f1
     }
 
 </style>
