@@ -141,6 +141,9 @@
      return false;
  }
 
+
+
+
  firebase.auth().onAuthStateChanged(function (user) {
      if (user) {
          // User is signed in.
@@ -152,6 +155,74 @@
          document.getElementById('signinpage').style.display = 'block'
      }
  });
+
+ function showMenu() {
+     document.getElementById("menu").classList.toggle("show");
+ }
+
+ window.onclick = function (event) {
+     if (!event.target.matches('.dropbtn')) {
+
+         var dropdowns = document.getElementsByClassName("dropdown-content");
+         var i;
+         for (i = 0; i < dropdowns.length; i++) {
+             var openDropdown = dropdowns[i];
+             if (openDropdown.classList.contains('show')) {
+                 openDropdown.classList.remove('show');
+             }
+         }
+     }
+ }
+
+
+ function logout() {
+     firebase.auth().signOut().then(function () {
+         // Sign-out successful.
+     }).catch(function (error) {
+         // An error happened.
+     });
+     return false;
+ }
+
+ function profile() {
+     var userID = firebase.auth().currentUser.uid;
+     var name = firebase.database().ref("users/" + userID)
+
+     name.once("value").then(function (snapshot) {
+         var user = snapshot.val();
+         var name = user.name;
+
+         var age = user.age;
+
+         var languages = Object.keys(user.languages).join(",");
+         document.write(age);
+         document.write(name);
+         document.write(languages);
+         document.write();
+     })
+ }
+
+ function profileEdit() {
+
+    document.getElementById("profileEdit").style.display = 'none'; 
+     document.getElementById("editProfileButton").addEventListener("click", function () {
+         document.getElementById('home').style.display = 'none';
+         document.getElementById("Profile") = "block";
+     })
+ }
+/*
+var currentSeite = home;
+var seiten = [profileEdit, home, signinpage]
+seiten.forEach(function(seite){
+    
+    if(currentSeite==seite) {
+        seite.style.display="block";
+    }
+    else{
+        seite.style.display="none";
+    }
+})
+*/
 
 function showMenu() {
     document.getElementById("menu").classList.toggle("show");
