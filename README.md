@@ -16,4 +16,4 @@ with Firebase and Database
 Anna, Klara, Tsz Yu Fan Jack, Lim EunChae, Ahn EunJae, Helen Zhao, erkegul, undrakh
 ```
 ## Liecense
-This project doesn't need any license. 
+This project doesn't need any license. Also sign up right now!
