@@ -11,7 +11,7 @@ We developed this website for those reasons:
 * JavaScript
 with Firebase and Database
 ## Authors
-#TeamTokyo
+#JugendHackt #JHAsien #TeamTokyo
 ```
 Anna, Klara, Tsz Yu Fan Jack, Lim EunChae, Ahn EunJae, Helen Zhao, erkegul, undrakh
 ```
