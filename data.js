@@ -31,46 +31,58 @@
  }
 
 
- function matchlanguages() {
-     var language = "german"
-     var userId = firebase.database().ref("tag/languages/" + language);
-     userId.once("value").then(function (snapshot) {
-         var languageMap = snapshot.val();
-         var languageList = Object.keys(languageMap);
-         var usersP = languageList.map(function (userId) {
-             var userP = firebase.database().ref("users/" + userId).once("value");
-             return userP;
-
-         })
-         Promise.all(usersP).then(function (users) {
-             users = users.map((snapshot) => snapshot.val())
-             console.log(users); // maybe needs fixing ?!?!
-         });
-
-
+ function getusersfortag(tagmap, tagkey) {
+     var tagList = Object.keys(tagmap);
+     return tagList.map(function (tag) {
+         var userIdinlg = firebase.database().ref("tag/" + tagkey + "/" + tag);
+         return userIdinlg.once("value")
      });
  }
 
+ function matchusers() {
+     var userID = firebase.auth().currentUser.uid;
+     var user = firebase.database().ref("users/" + userID)
 
+     user.once("value").then(function (snapshot) {
+         var languagesP = getusersfortag(snapshot.val().languages, "languages")
+         var hobbiesP = getusersfortag(snapshot.val().hobbies, "hobbies")
+         var allP = languagesP.concat(hobbiesP)
+         Promise.all(allP).then(function (snapshots) {
+             var userIdsList = snapshots.map((snapshot) => snapshot.val())
+             var alluserIDmap = userIdsList.reduce(function (res, userids) {
+                 Object.keys(userids).forEach(function (userid) {
+                     res[userid] = true
+                 })
+                 return res;
+             }, {})
+             var allUserIdlist = Object.keys(alluserIDmap).filter(function (listuserid) {
+                 if (userID == listuserid) {
+                     return false
+                 } else {
+                     return true
+                 }
+             })
 
- function matchHobby() {
-     hobby = "coding"
-     var userIdH = firebase.database().ref("tag/hobbys/" + hobby);
-     userIdh.once("value").then(function (snapshot) {
-         var hobbyMap = snapshot.val();
-         var hobbyList = Object.keys(hobbyMap);
-         var userP = hobbyList.map(function (userIdH) {
-             var userP = firebase.database().ref("user/" + userIdH).once("value");
-             return userP;
-         })
-         Promise.all(usersP).then(function (users) {
-             users = users.map((snapshot) => snapshot.val())
-             console.log(users); // maybe needs fixing ?!?!
+             var allUserDataP = allUserIdlist.map(function (userid) {
+                 return firebase.database().ref("users/" + userid).once("value")
+             })
+             Promise.all(allUserDataP).then(function (allUserDatasnapshots) {
+                 var allUserData = allUserDatasnapshots.map((snapshot) => snapshot.val()).filter(function (user) {
+                     //manche user sind verlinkt, aber nicht vorhanden (haben kein profil)
+                     if (user == null) {
+                         return false
+                     } else {
+                         return true
+                     }
+                 })
+                 console.log(allUserData)
+
+             })
+
          });
+     });
 
-     })
  }
-
 
 
  function createNewUser(form) {
@@ -204,40 +216,40 @@
 
  function profileEdit() {
 
-    document.getElementById("profileEdit").style.display = 'none'; 
+     document.getElementById("profileEdit").style.display = 'none';
      document.getElementById("editProfileButton").addEventListener("click", function () {
          document.getElementById('home').style.display = 'none';
          document.getElementById("Profile") = "block";
      })
  }
-/*
-var currentSeite = home;
-var seiten = [profileEdit, home, signinpage]
-seiten.forEach(function(seite){
-    
-    if(currentSeite==seite) {
-        seite.style.display="block";
-    }
-    else{
-        seite.style.display="none";
-    }
-})
-*/
+ /*
+ var currentSeite = home;
+ var seiten = [profileEdit, home, signinpage]
+ seiten.forEach(function(seite){
+     
+     if(currentSeite==seite) {
+         seite.style.display="block";
+     }
+     else{
+         seite.style.display="none";
+     }
+ })
+ */
 
-function showMenu() {
-    document.getElementById("menu").classList.toggle("show");
-}
+ function showMenu() {
+     document.getElementById("menu").classList.toggle("show");
+ }
 
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
+ window.onclick = function (event) {
+     if (!event.target.matches('.dropbtn')) {
 
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
+         var dropdowns = document.getElementsByClassName("dropdown-content");
+         var i;
+         for (i = 0; i < dropdowns.length; i++) {
+             var openDropdown = dropdowns[i];
+             if (openDropdown.classList.contains('show')) {
+                 openDropdown.classList.remove('show');
+             }
+         }
+     }
+ }
