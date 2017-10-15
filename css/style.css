@@ -1,6 +1,4 @@
-#profilbild {
-    margin: 50px;
-}
-#personalinfo >span>div {
-    margin: 50px;
+#profilbild, 
+#personalinfo  {
+    padding: 50px;
 }

@@ -50,7 +50,65 @@
         
         
         
-
+        <script type="text/javascript">
+           
+            function matchlanguages(){
+                
+                var activeuserID = firebase.auth().currentUser.uid;
+                var userId = firebase.database().ref("tag/languages/" + language);
+                
+                var language = firebase.database().ref("users/"+activeuserID+"/languages")
+                language.once("value").then(function(snapshot){
+                    var languageMap =  snapshot.val();
+                    var languageList = Object.keys(languageMap);                           
+                    languageList.map(function(userId){
+                       var languageP = firebase.database().ref("users/" + userId).once("value");
+                       return languageP});
+                   
+                   Promise.all(usersP).then(function(users) {
+                      users = users.map((snapshot)=>snapshot.val())
+                       console.log(users); // maybe needs fixing ?!?!
+                   });
+                });  
+            }
+            
+            function matchHobby(){
+                var userID = firebase.auth().currentUser.uid;
+                
+                var hobby = firebase.database().ref("users/"+userID+"/hobbies")
+                hobby.once("vaue").then(function(snapshot){
+                     var hobbyMap = snapshot.val();
+                    var hobbyList= Object.keys(hobbyMap);
+                   var userP = hobbyList.map(function(userIdH){
+                        var userP = firebase.database().ref("user/" + userIdH).once("value");
+                        return userP;
+                    });
+                    Promise.all(usersP).then(function(users) {
+                      users = users.map((snapshot)=>snapshot.val())
+                       console.log(users); // maybe needs fixing ?!?!
+                   })
+                })
+                    
+                var userIdH = firebase.database().ref("tag/hobbys/" + hobby);
+                userIdh.once("value").then(function(snapshot) {
+                    var hobbyMap = snapshot.val();
+                    var hobbyList= Object.keys(hobbyMap);
+                    var userP = hobbyList.map(function(userIdH){
+                        var userP = firebase.database().ref("user/" + userIdH).once("value");
+                        return userP;
+                    })
+                    Promise.all(usersP).then(function(users) {
+                      users = users.map((snapshot)=>snapshot.val())
+                       console.log(users); // maybe needs fixing ?!?!
+                   });
+                
+            })}
+        
+        </script>
+        
+        
+        
+        
         
         
         <form onsubmit="return loginSubmit(this)"> 
@@ -89,8 +147,43 @@
         </form>
         
 
-<script>        
+        
+        <script type="text/javascript">
 
+function submitUserData(form){
+        try{
+    //just trying
+            var userID = firebase.auth().currentUser.uid;
+            var userData = firebase.database().ref("users/"+userID);
+            var hobbies = $(form.hobbies).tagsinput("items");
+            var languages = $(form.languages).tagsinput("items");
+            var lg = languages.reduce(function(res, item){
+                res[item] = true;
+                return res;
+                
+            }, {});
+            var hb = hobbies.reduce(function(res, item){
+                res[item] = true;
+                return res;
+                
+            }, {});
+        
+            var hbT = hobbies.reduce(function(res, item){
+                return res;
+                
+            }, {});
+            firebase.database().ref("users/"+userID+"/hobbies").on("child_added", function(hbadded){
+                var userData = firebase.database().ref("tag/hobbies/"+hbadded.key+"/"+userID).set(true);
+            });
+            firebase.database().ref("users/"+userID+"/languages").on("child_added", function(ladded) {
+                var userData = firebase.database().ref("tag/languages/"+ladded.key+"/"+userID).set(true);
+            });
+            firebase.database().ref("users/"+userID+"/hobbies").on("child_removed", function(hbremoved){
+                var userData = firebase.database().ref("tag/hobbies/"+hbremoved.key+"/"+userID).set(true);
+            });
+            firebase.database().ref("users/"+userID+"/languages").on("child_removed", function(lremoved) {
+                var userData = firebase.database().ref("tag/languages/"+lremoved.key+"/"+userID).set(true);
+            });
       userData.update({
           name : form.uname.value,
           age : form.age.value,
@@ -110,7 +203,6 @@
 }
 
         </script>
-
         
         <form id="profile" onsubmit="return submitUserData(this)">
         <label>Name</label><input id="uname" name="uname" required>
