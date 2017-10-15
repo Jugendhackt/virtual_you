@@ -62,7 +62,6 @@
 
                  return res;
              }, {})
-
              var allUserIdlist = Object.keys(alluserIDmap).filter(function (listuserid) {
                  if (userID == listuserid) {
                      return false
@@ -70,7 +69,22 @@
                      return true
                  }
              })
-             console.log(allUserIdlist)
+
+             var allUserDataP = allUserIdlist.map(function (userid) {
+                 return firebase.database().ref("users/" + userid).once("value")
+             })
+             Promise.all(allUserDataP).then(function (allUserDatasnapshots) {
+                 var allUserData = allUserDatasnapshots.map((snapshot) => snapshot.val()).filter(function (user) {
+                     //manche user sind verlinkt, aber nicht vorhanden (haben kein profil)
+                     if (user == null) {
+                         return false
+                     } else {
+                         return true
+                     }
+                 })
+                 console.log(allUserData)
+
+             })
 
          });
      });
