@@ -1,0 +1,36 @@
+<html>
+    <head>
+        
+        <script type="text/javascript" src="data.js"></script>
+        <script type="text/javascript" src="jquery.js"></script>
+        <script type="text/javascript" src="data.js"></script>
+
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.5.1/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-app.js"></script>
+         <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-firestore.js"></script>
+        <script src="./bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.js"></script>
+        <link rel="stylesheet" href="./bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.css">
+        
+    </head>
+    
+    <body>
+    
+          
+        <img id="profilPic">
+        
+        <form id="profile" onsubmit="return submitUserData(this)">
+        <label>Name</label><input name="uname" required>
+        <label>Age</label><input name="age" required>    
+        <label>Gender</label><input name="gender" required>    
+        <label>Language</label><input name="languages" data-role="tagsinput">
+        <label>Hobbies</label><input name="hobbies" data-role="tagsinput">     
+        <button onsubmit="return submitUserData(this)">Submit</button>
+            
+     
+        </form>
+        
+    </body>
+</html
