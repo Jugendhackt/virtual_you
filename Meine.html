@@ -91,7 +91,7 @@
                                             <a onclick="profile()">View Profile</a>
                                         </li>
                                         <li>
-                                            <a href="#">Edit Profile</a>
+                                            <a href="/profile.html">Edit Profile</a>
                                         </li>
                                         <li>
                                             <a onclick="return logout()">Logout</a>
@@ -280,18 +280,35 @@
         </div>
     </div>
 
-    <div id="profileView">
+ <div>
+        <img id="profilPic">
+        <div id="formular">
         <form id="profile" onsubmit="return submitUserData(this)">
-            <label>Name</label><input id="uname" name="uname" required>
-            <label>Gender</label><input id="gender" name="gender" required>
-            <label>Age</label><input id="age" name="age" required>
-            <label>Language</label><input id="languages" name="languages" data-role="tagsinput">
-            <label>Hobbies</label><input name="hobbies" data-role="tagsinput">
-            <button type="submit" onsubmit="return submitUserData(this)">Submit</button>
+        <label>Name</label><input id="uname" name="uname" required> <br>
+        <label>Gender</label><input id="gender" name="gender" required><br>
+        <label>Age</label><input id="age" name="age" required><br>
+        <label>Language</label><input id="languages" name="languages" data-role="tagsinput"><br>
+        <label>Hobbies</label><input name="hobbies" data-role="tagsinput"><br>
+        <button type="submit" onsubmit="return submitUserData(this)">Submit</button>  
+     
         </form>
 
-    </div>
 
+<style>
+
+    body{
+        font-family: 'Quicksand', sans-serif;
+        margin: 20px;
+    }
+    
+    label{
+        margin-right: 3px;
+    }
+
+
+</style>
+        </div>
+     
 
     <style>
         #ueberschrift {
@@ -311,7 +328,7 @@
 
     </style>
 
-
+            
 
     </div>
 

@@ -1,6 +1,8 @@
 <html>
     <head>
         
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+            <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
         <script type="text/javascript" src="data.js"></script>
         <script type="text/javascript" src="jquery.js"></script>
         
@@ -19,16 +21,30 @@
     
           
         <img id="profilPic">
-        
+        <div id="formular">
         <form id="profile" onsubmit="return submitUserData(this)">
-        <label>Name</label><input id="uname" name="uname" required>
-        <label>Gender</label><input id="gender" name="gender" required>
-        <label>Age</label><input id="age" name="age" required>
-        <label>Language</label><input id="languages" name="languages" data-role="tagsinput">
-        <label>Hobbies</label><input name="hobbies" data-role="tagsinput">
+        <label>Name</label><input id="uname" name="uname" required> <br>
+        <label>Gender</label><input id="gender" name="gender" required><br>
+        <label>Age</label><input id="age" name="age" required><br>
+        <label>Language</label><input id="languages" name="languages" data-role="tagsinput"><br>
+        <label>Hobbies</label><input name="hobbies" data-role="tagsinput"><br>
         <button type="submit" onsubmit="return submitUserData(this)">Submit</button>  
      
         </form>
-        
+            </div>
     </body>
-</html
+</html>
+
+<style>
+
+    body{
+        font-family: 'Quicksand', sans-serif;
+        margin: 20px;
+    }
+    
+    label{
+        margin-right: 3px;
+    }
+
+
+</style>
