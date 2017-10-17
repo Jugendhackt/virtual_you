@@ -76,7 +76,7 @@
                      }
                  })
                  console.log(allUserData)
-
+ // gibt alle pasenden userdaten als array in einr array aus
              })
 
          });
